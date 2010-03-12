@@ -1,11 +1,11 @@
-def Arbitrary(klass)
-  Rubarb.generator(klass).call
+def Arbitrary(klass,*args)
+  Rubarb.generator(klass).call *args
 end
 
-def ForAll(klass)
+def ForAll(klass,*args)
   srand klass.hash
   Rubarb.config[:forall_amount].times do
-    yield Arbitrary(klass)
+    yield Arbitrary(klass,*args)
   end
 end
 

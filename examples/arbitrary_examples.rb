@@ -8,4 +8,16 @@ describe "Arbitrary" do
       Arbitrary(name).should == value
     end
   end
+
+  it 'should pass arguments on to block' do
+    ForAll(String) do |name|
+      actual_args = nil
+      Rubarb.define(name) { |*args| actual_args = args }
+      expected_args = (0..Arbitrary(Fixnum)).to_a
+
+      Arbitrary(name, *expected_args)
+
+      actual_args.should == expected_args
+    end
+  end
 end

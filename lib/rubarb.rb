@@ -22,7 +22,11 @@ module Rubarb
   def self.generator(klass)
     @generators[klass]
   end
+
+  def self.generators
+    @generators.keys
+  end
 end
 
-require 'rubarb/top_level_methods'
+require File.join(File.dirname(__FILE__), '/rubarb/top_level_methods')
 Dir[File.join(File.dirname(__FILE__), 'rubarb', 'generators', '*.rb')].each {|f| require f}

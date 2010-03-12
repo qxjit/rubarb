@@ -46,6 +46,15 @@ describe "forall" do
     end
   end
 
+  it 'should pass args on to Arbitrary' do
+    ForAll(String) do |name|
+      Rubarb.define(name) { |*args| args }
+      (1..10).each do |n|
+        ForAll(name, *(0..n).to_a) {|v| v.should == (0..n).to_a }
+      end
+    end
+  end
+
   it 'should generate the same list each time' do
     list1 = []; ForAll(Fixnum) {|n| list1 << n}
     list2 = []; ForAll(Fixnum) {|n| list2 << n}
